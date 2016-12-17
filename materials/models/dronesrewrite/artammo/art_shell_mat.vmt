@@ -1,0 +1,16 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/dronesrewrite/artammo/artammo_mat"
+	"$surfaceprop" "metal"
+
+	"$bumpmap" "models/dronesrewrite/artammo/artammo_matn"
+
+	"$phong" "1"
+	"$phongexponent" "2"
+	"$phongboost" "0.5"
+	"$phongfresnelranges" "[5 2 15]"
+
+	"$envmap" "env_cubemap"
+	"$normalmapalphaenvmap" "models/dronesrewrite/artammo/artammo_mat"
+	"$envmaptint" "[.01 .01 .01]"
+}

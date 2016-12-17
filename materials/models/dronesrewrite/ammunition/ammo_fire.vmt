@@ -1,0 +1,14 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/dronesrewrite/ammunition/ammo_fire"
+	"$surfaceprop" "metal"
+	"$bumpmap" "models/dronesrewrite/ammunition/ammo_defn"
+
+	"$phong" "1"
+	"$phongexponent" "12"
+	"$phongboost" ".6"
+	"$phongfresnelranges" "[0 15 25]"
+
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[.01 .01 .01]"
+}

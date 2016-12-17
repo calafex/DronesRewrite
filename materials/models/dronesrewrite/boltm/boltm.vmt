@@ -1,0 +1,16 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/dronesrewrite/boltm/boltm"
+	"$surfaceprop" "metal"
+	"$bumpmap" "models/dronesrewrite/boltm/boltm_n"
+	"$phong" "1"
+	"$phongexponent" "10"
+	"$phongboost" ".1"
+	"$phongfresnelranges" "[0 1 20]"
+	"$rimlight" "0"
+	"$rimlightexponent" "1"
+	"$rimlightboost" ".1"
+	"$envmap" "env_cubemap"
+	"$normalmapalphaenvmap" "models/dronesrewrite/boltm/boltm"
+	"$envmaptint" "[.002 .002 .002]"
+}

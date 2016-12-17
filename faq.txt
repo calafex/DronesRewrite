@@ -1,0 +1,55 @@
+Q: How to add AI to a drone?
+A: You need to use a wrench tool from "Drones Rewrite Tools" section in weapons.
+   Just press LMB on your drone and a window should pop up
+
+Q: How can i go to a Thirdperson mode?
+A: "I" Key
+ 
+Q: How can i use more weapons that installed on my drone?
+A: To change weapons on the drone you currently controlling you need to scroll your mouse wheel to
+   select a weapon and then press LMB to apply that weapon
+ 
+Q: How do i make it so the drones don't attack eachother/My friends?
+A: Add your drones to friend settings in Options->Drones Settings->AI->Show Friends Setting.
+   By default all the drones you spawned are considered as enemy
+
+Q: How to use winch/refueller/pick up things with Cargo Drone?
+A: You need to hover RIGHT ABOVE your prop/entity/drone you want to pick up. 
+   I suggest using Thirdperson mode ('I' key). Also, you can't pick up or refuel a drone from a mile distance
+   
+Q: How can i give ammo to drones?
+A: Go to Entities->Drones Rewrite Ammo and spawn ammo that you needed. After that place your ammo
+   box on top of your drone
+
+Q: I can't use drones, my screen goes black when i try to control them. What can i do?
+A: You should check your addons, especially if you have >20 of them. 
+   There are plenty of confilcting ones that can break the render of drone screen.
+   
+Q: I cant fly far away from myself. What can i do?
+A: Use "Controller" or "Control station", you can find them in Drones Rewrite Tools
+   Also you can just add module Signal booster or check "No signal" option in Q->Options->Drones Rewrite->Server
+
+Q: How to undeploy Ball Turret?
+A: You can't undeploy it, because it is one use drone.    
+   
+Q: How to refuel drone?
+A: Go to Q->Entities->Drones Rewrite Tools and spawn an entity called "Gas Station"
+   Grab pump and put it on the drone. After drone's refueling move drone away
+   Also you can refuel other drones with GPRO Assistant Drone
+
+Q: How to change keyboard settings?
+A: Go to Q->Options->Drones Rewrite->Keys
+
+Q: How can i make drones fight rebels/cleiners etc...
+A: Currently that is not possible. We will add this feature in the next updates
+
+Q: When I am trying to get drone's controls it says "[Drones] You can't drive this drone!"
+A: It means that drone is destroyed or you're not the owner of that drone or drone has AI installed
+      Repair the drone or hack it if you're not owner or remove all AI modules
+
+Q: Settings doesn't work! I changed some options and nothing happened!
+A: Seems like you forgot to press Apply settings
+   Try to press that button, but if problem still exists try to reinstall addon or restart your game
+   
+Q: Meloons?
+A: SWIIIBORG!!!!

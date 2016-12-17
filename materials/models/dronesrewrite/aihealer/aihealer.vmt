@@ -1,0 +1,15 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/dronesrewrite/aihealer/aihealer"
+	"$surfaceprop" "metal"
+
+	"$bumpmap" "models/dronesrewrite/aihealer/aihealer_n"
+
+	"$phong" "1"
+	"$phongexponent" "10"
+	"$phongboost" ".5"
+	"$phongfresnelranges" "[0 4 20]"
+
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[.004 .004 .004]"
+}

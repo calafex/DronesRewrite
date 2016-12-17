@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/dronesrewrite/cargo_propeller/propcargo"
+	"$surfaceprop" "plastic"
+}
