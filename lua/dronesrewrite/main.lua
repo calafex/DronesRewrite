@@ -168,7 +168,7 @@ end
 if SERVER then
 	hook.Add("Initialize", "dronesrewrite_inithook", function()
 		timer.Simple(0, function()
-			http.Fetch("https://raw.githubusercontent.com/ProfessorBear/Drones-Rewrite/master/version.txt",
+			http.Fetch("https://raw.githubusercontent.com/Ayditor/DronesRewrite/master/version.txt",
 				function(body, len, headers, code)
 					local version = tonumber(body)
 
