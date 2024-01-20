@@ -75,6 +75,21 @@ DRONES_REWRITE.Weapons["Grenade Launcher"] = {
 			return ent:GetCurrentGrenade().AmmoCount > 0
 		end
 
+		ent.GetPrimaryAmmo = function(e, type) 
+			if ent.PrimaryAsSecondary then
+				return ent:GetSecondaryAmmo()
+			end
+
+			local count = 0
+			for _, v in pairs(ent.Grenade) do
+				if v.AmmoType == type then
+					count = v.AmmoCount
+				end
+			end
+
+			return count
+		end
+
 		ent.SetPrimaryAmmo = function(ent, num, ammotype)
 			if ent.PrimaryAsSecondary then
 				ent:SetSecondaryAmmo(num, ammotype)

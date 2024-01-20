@@ -1628,7 +1628,7 @@ function ENT:PhysicsCollide(data, phys)
 					if table.HasValue(v.PrimaryAmmoType, ammo:GetClass()) then
 						local deal = amount
 
-						local curammo = v:GetPrimaryAmmo()
+						local curammo = v:GetPrimaryAmmo(ammo:GetClass())
 						local max = v:GetPrimaryMax()
 						
 						if (curammo + deal) >= max then

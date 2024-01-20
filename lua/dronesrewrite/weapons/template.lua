@@ -47,7 +47,7 @@ DRONES_REWRITE.Weapons["Template"] = {
 			return e.SecondaryAmmoMax
 		end
 
-		e.GetPrimaryAmmo = function(e) 
+		e.GetPrimaryAmmo = function(e, type) 
 			if e.PrimaryAsSecondary then
 				return e:GetSecondaryAmmo()
 			end
