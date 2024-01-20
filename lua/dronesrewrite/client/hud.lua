@@ -39,8 +39,9 @@ local no_drawing = {
 
 hook.Add("HUDShouldDraw", "dronesrewrite_nohuddraw", function(name)
 	local ply = LocalPlayer()
-	local drone = ply:GetNWEntity("DronesRewriteDrone")
+	if not ply:IsValid() then return false end
 
+	local drone = ply:GetNWEntity("DronesRewriteDrone")
 	if drone:IsValid() then
 		if no_drawing[name] then return false end
 	end

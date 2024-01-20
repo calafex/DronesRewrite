@@ -10,7 +10,7 @@ DRONES_REWRITE.LogDebug = function(text)
 	end
 end
 
-DRONES_REWRITE.Version = 4
+DRONES_REWRITE.Version = 5
 
 DRONES_REWRITE.HUD = { }
 DRONES_REWRITE.Overlay = { }
@@ -168,7 +168,7 @@ end
 if SERVER then
 	hook.Add("Initialize", "dronesrewrite_inithook", function()
 		timer.Simple(0, function()
-			http.Fetch("https://raw.githubusercontent.com/Ayditor/DronesRewrite/master/version.txt",
+			http.Fetch("https://raw.githubusercontent.com/calafex/DronesRewrite/master/version.txt",
 				function(body, len, headers, code)
 					local version = tonumber(body)
 
@@ -177,7 +177,7 @@ if SERVER then
 					else
 						local msg1 = "\nSeems like Drones Rewrite is outdated!"
 						local msg2 = "\nNew version: " .. body
-						local msg3 = "Your version: " .. DRONES_REWRITE.Version .. "!\n"
+						local msg3 = "\nYour version: " .. DRONES_REWRITE.Version .. "!\n"
 						MsgC(Color(255, 100, 80), msg1, msg2, msg3)
 
 						print("Please download new version here: http://steamcommunity.com/sharedfiles/filedetails/?id=669642096")

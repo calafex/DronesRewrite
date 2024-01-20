@@ -274,7 +274,7 @@ function ENT:SetDriver(ply, maxDistance, transmitter)
 	local driver = self:GetDriver()
 
 	if driver:IsValid() and ply:IsValid() then return end
-	if ply:GetNWEntity("DronesRewriteDrone"):IsValid() then return end
+	if ply:IsValid() and ply:GetNWEntity("DronesRewriteDrone"):IsValid() then return end
 
 	if ply:IsValid() then
 		DRONES_REWRITE.LogDebug(string.format("Trying to set driver to %s", ply:Name()))
