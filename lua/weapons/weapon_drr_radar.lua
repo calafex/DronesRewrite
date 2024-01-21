@@ -25,7 +25,7 @@ SWEP.ViewModel = "models/dronesrewrite/c_radar/c_radar.mdl"
 SWEP.WorldModel = "models/dronesrewrite/c_radar/c_radar.mdl"
 
 function SWEP:DoIdle()
-	timer.Simple(self:SequenceDuration() + math.random(60, 90), function() 
+	timer.Create("weapon_idle" .. self:EntIndex(), self:SequenceDuration(), 1, function()
 		if IsValid(self) then 
 			self:SendWeaponAnim(ACT_VM_IDLE) 
 			self:DoIdle()
@@ -45,6 +45,7 @@ function SWEP:PrimaryAttack() end
 function SWEP:SecondaryAttack() end
 
 function SWEP:OnRemove()
+	timer.Stop("weapon_idle" .. self:EntIndex())
 	timer.Stop("weapon_active" .. self:EntIndex())
 
 	self:SetNWBool("DRRActivated", false)
