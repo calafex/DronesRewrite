@@ -120,6 +120,11 @@ DRONES_REWRITE.Weapons["Homing Missile Launcher"] = {
 			if IsValid(physamm) then physamm:ApplyForceCenter(ammo:GetForward() * 12000) end 
 			gun.Missile = ammo
 
+			local ef = EffectData()
+			ef:SetOrigin(gun:GetPos() + gun:GetForward() * -15 + gun:GetUp() * -1)
+			ef:SetNormal(gun:GetForward() * -1)
+			util.Effect("dronesrewrite_muzzleflashgrn", ef)
+
 			SafeRemoveEntity(gun.Rocket)
 
 			gun:SetPrimaryAmmo(-1)

@@ -25,9 +25,9 @@ SWEP.ViewModel = "models/dronesrewrite/c_radar/c_radar.mdl"
 SWEP.WorldModel = "models/dronesrewrite/c_radar/c_radar.mdl"
 
 function SWEP:DoIdle()
-	timer.Create("weapon_idle" .. self:EntIndex(), self:SequenceDuration(), 1, function() 
+	timer.Simple(self:SequenceDuration() + math.random(30, 60), function() 
 		if IsValid(self) then 
-			self:SendWeaponAnim(ACT_VM_IDLE) 
+			--self:SendWeaponAnim(ACT_VM_IDLE) 
 			self:DoIdle()
 		end 
 	end)
@@ -45,7 +45,6 @@ function SWEP:PrimaryAttack() end
 function SWEP:SecondaryAttack() end
 
 function SWEP:OnRemove()
-	timer.Stop("weapon_idle" .. self:EntIndex())
 	timer.Stop("weapon_active" .. self:EntIndex())
 
 	self:SetNWBool("DRRActivated", false)
@@ -84,7 +83,7 @@ if CLIENT then
 			})
 		end
 
-		local a = math.rad(0) -- This is need for non absolute segment counts
+		local a = math.rad(0) -- This is needed for non absolute segment counts
 
 		table.insert( cir, { 
 			x = x + math.sin(a) * radius, 
@@ -93,19 +92,9 @@ if CLIENT then
 			v = math.cos(a) / 2 + 0.5 
 		})
 
+		--surface.SetMaterial(mat)
+		--draw.NoTexture()
 		surface.DrawPoly(cir)
-	end
-
-	function SWEP:Think()
-		if IsValid(self.Owner) then
-			if self.Owner:KeyDown(IN_ATTACK) then
-				self.RangeRadar = math.Approach(self.RangeRadar, 10, 1)
-			end
-
-			if self.Owner:KeyDown(IN_ATTACK2) then
-				self.RangeRadar = math.Approach(self.RangeRadar, 200, 1)
-			end
-		end
 	end
 
 	function SWEP:ViewModelDrawn()
@@ -131,8 +120,6 @@ if CLIENT then
 		pos = pos - ang:Forward() * 0.3
 		pos = pos + ang:Up() * 2.4
 
-		-- -self.Owner:EyeAngles().y + 90
-
 		cam.Start3D2D(pos, ang, 0.012)
 			surface.SetDrawColor(Color(0, 255, 0, 100))
 
@@ -140,7 +127,7 @@ if CLIENT then
 			for i = 1, 15 do surface.DrawLine(-250, i * 50 - 400, 250, i * 50 - 400) end
 
 			surface.SetDrawColor(Color(100, 255, 100))
-			Circle(0, 0, 15, 16)
+			Circle(0, 0, 6, 6)
 
 			surface.SetDrawColor(Color(0, 255, 0, 255))
 
@@ -153,8 +140,20 @@ if CLIENT then
 				dist = dist * (v:GetPos():Distance(self.Owner:GetPos()) / self.RangeRadar)
 				if dist:Length() > 240 then continue end
 					
-				Circle(dist.x, dist.y, math.Clamp(30 - (self.RangeRadar * 0.4) + math.sin(CurTime() * 16), 4, 15), 16)
+				Circle(dist.x, dist.y, math.Clamp(12 - self.RangeRadar * 0.1, 4, 12) + math.sin(CurTime() * 10) * 0.5, 12)
 			end
 		cam.End3D2D()
+	end
+
+	function SWEP:Think()
+		if IsValid(self.Owner) then
+			if self.Owner:KeyDown(IN_ATTACK) then
+				self.RangeRadar = math.Approach(self.RangeRadar, 10, 1)
+			end
+
+			if self.Owner:KeyDown(IN_ATTACK2) then
+				self.RangeRadar = math.Approach(self.RangeRadar, 200, 1)
+			end
+		end
 	end
 end

@@ -15,7 +15,7 @@ DRONES_REWRITE.Weapons["Rocket Launcher"] = {
 
 	Attack = function(self, gun)
 		if CurTime() > gun.NextShoot and gun:HasPrimaryAmmo() then
-			local src = gun:GetPos() + gun:GetForward() + gun:GetUp() * 2
+			local src = gun:GetPos() + gun:GetForward() * -10
 
 			local ammo = ents.Create("dronesrewrite_rocket")
 			ammo:SetPos(src)
@@ -28,7 +28,12 @@ DRONES_REWRITE.Weapons["Rocket Launcher"] = {
 			local physamm = ammo:GetPhysicsObject()
 			if IsValid(physamm) then physamm:EnableGravity(false) end 
 			
-			physamm:AddVelocity(gun:GetForward() * 5000)
+			physamm:AddVelocity(gun:GetForward() * 2000)
+
+			local ef = EffectData()
+			ef:SetOrigin(gun:GetPos() + gun:GetForward() * 10)
+			ef:SetNormal(gun:GetForward())
+			util.Effect("dronesrewrite_missilelaunch", ef)
 
 			ammo:EmitSound("weapons/rpg/rocketfire1.wav", 79, 100, 1, CHAN_WEAPON)
 

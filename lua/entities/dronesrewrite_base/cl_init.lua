@@ -1,6 +1,7 @@
 include("shared.lua")
 
 local matLamp = Material("sprites/light_glow02_add_noz")
+local matTarget = Material("stuff/whiteboxhud/target")
 
 function ENT:Draw()
 	if not (not self.RenderInCam and LocalPlayer() == self:GetDriver() and not self:GetNWBool("ThirdPerson") and self:GetMainCamera() == self:GetCamera()) then 
@@ -39,39 +40,50 @@ function ENT:Draw()
 		end
 	end
 
-	if DRONES_REWRITE.ClientCVars.DrawAttachments:GetBool() and self.Attachments then
+	if DRONES_REWRITE.ClientCVars.DrawAttachments:GetBool() and self.Attachments and not self:GetNWBool("ThirdPerson") then
 		cam.IgnoreZ(true)
-			for k, v in pairs(self.Attachments) do 
-				local pos = self:LocalToWorld(v.Pos)
 
-				local ang = (EyePos() - pos):Angle()
-				ang:RotateAroundAxis(ang:Up(), 90)
-				ang:RotateAroundAxis(ang:Forward(), 90)
+		for k, v in pairs(self.Attachments) do 
+			local pos = self:LocalToWorld(v.Pos)
+			local dist = EyePos():Distance(pos)
+			
+			if (dist > 300) then continue end
 
-				cam.Start3D2D(pos, ang, 0.1)
-					local ppos
-					if v.Pos then
-						ppos = v.Pos.x .. " " .. v.Pos.y .. " " .. v.Pos.z
-					end
+			local ang = (EyePos() - pos):Angle()
+			ang:RotateAroundAxis(ang:Up(), 90)
+			ang:RotateAroundAxis(ang:Forward(), 90)
 
-					if not ppos then ppos = "No pos" end
+			cam.Start3D2D(pos, ang, math.Clamp(dist / 1000, 0.1, 100))
+				local ppos
+				if v.Pos then
+					ppos = v.Pos.x .. " " .. v.Pos.y .. " " .. v.Pos.z
+				end
 
-					local pang
-					if v.Angle then
-						pang = v.Angle.p .. " " .. v.Angle.y .. " " .. v.Angle.r
-					end
+				if not ppos then ppos = "No pos" end
 
-					if not pang then pang = "No angle" end
-					
-					draw.SimpleText(k, "DronesRewrite_font3", -86, -64, Color(255, 255, 255), TEXT_ALIGN_RIGHT)
-					draw.SimpleText("Position: " .. ppos, "DronesRewrite_font3", -86, -32, Color(255, 255, 255), TEXT_ALIGN_RIGHT)
-					draw.SimpleText("Angle: " .. pang, "DronesRewrite_font3", -86, 0, Color(255, 255, 255), TEXT_ALIGN_RIGHT)
+				local pang
+				if v.Angle then
+					pang = v.Angle.p .. " " .. v.Angle.y .. " " .. v.Angle.r
+				end
 
-					surface.SetDrawColor(Color(255, 255, 255))
-					surface.SetMaterial(Material("stuff/whiteboxhud/target"))
-					surface.DrawTexturedRect(-64, -64, 128, 128)
-				cam.End3D2D()
-			end
+				if not pang then pang = "No angle" end
+				
+				draw.SimpleText(k, "DronesRewrite_font3", 5, -32, Color(255, 255, 255), TEXT_ALIGN_LEFT)
+				--draw.SimpleText("Pos: " .. ppos, "DronesRewrite_font3", -48, -32, Color(255, 255, 255), TEXT_ALIGN_LEFT)
+				--draw.SimpleText("Ang: " .. pang, "DronesRewrite_font3", -48, 0, Color(255, 255, 255), TEXT_ALIGN_LEFT)
+
+				surface.SetDrawColor(Color(255, 255, 255))
+				--surface.SetMaterial(matTarget)
+				--surface.DrawTexturedRect(-64, -64, 128, 128)
+
+				surface.DrawRect(-32, -2, 28, 4)
+				surface.DrawRect(-2, -32, 4, 28)
+
+				surface.DrawRect(4, -2, 28, 4)
+				surface.DrawRect(-2, 4, 4, 28)
+			cam.End3D2D()
+		end
+
 		cam.IgnoreZ(false)
 	end
 end

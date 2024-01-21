@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 SWEP.PrintName	= "Signal Jammer"
 SWEP.Category = "Drones Rewrite Tools"
-SWEP.Purpose = "Tool that allows you to jam signals"
+SWEP.Purpose = "Tool that allows you to jam drones"
 
 SWEP.Spawnable	= true 
 SWEP.UseHands	= true
@@ -14,12 +14,12 @@ SWEP.SlotPos		= 6
 
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
-SWEP.Primary.Automatic		= true
+SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "none"
 
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
-SWEP.Secondary.Automatic	= true
+SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
 SWEP.ViewModel = "models/dronesrewrite/jammer/c_jammer.mdl"
@@ -29,20 +29,8 @@ SWEP.TURNON = "buttons/button17.wav"
 SWEP.SCREEN = {}
 SWEP.SCREEN.ENABLED = false
 
-
 function SWEP:Initialize()
 	self:SetHoldType("pistol")
-end
-
-function SWEP:PostDrawViewModel(viewmodel)
-	if SERVER then return end
-	
-	local pos, ang = viewmodel:GetBonePosition(39), self.Owner:EyeAngles()
-
-end
-
-function SWEP:Think()
-
 end
 
 function SWEP:PrimaryAttack()
@@ -52,16 +40,18 @@ function SWEP:PrimaryAttack()
 	timer.Simple(self:SequenceDuration(), function()
 		if not IsValid(self) or not IsValid(self.Owner) then return end
 
-		for k, v in pairs(ents.FindInSphere(self:GetPos(), 250)) do
+		local entsInSphere = ents.FindInSphere(self:GetPos(), 200)
+		for k, v in pairs(entsInSphere) do
 			if not v.IS_DRONE then continue end
 			if v == self then continue end
 
 			local phys = v:GetPhysicsObject()
+			if not phys:IsValid() then continue end
 
-			phys:SetVelocity((v:GetPos() - self:GetPos()):GetNormal() * 450)
-			phys:AddAngleVelocity(VectorRand() * 1200)
+			phys:SetVelocity((v:GetPos() - self:GetPos()):GetNormal() * 150)
+			phys:AddAngleVelocity(VectorRand() * 500)
 			
-			v:TakeDamage(math.random(45,60) * DRONES_REWRITE.ServerCVars.DmgCoef:GetFloat(), self.Owner, self)
+			v:TakeDamage(math.random(45, 60) * DRONES_REWRITE.ServerCVars.DmgCoef:GetFloat(), self.Owner, self)
 
 			if v.IS_DRR then
 				v:SetEnabled(false)
@@ -74,12 +64,17 @@ function SWEP:PrimaryAttack()
 
 			ParticleEffect("vapor_collapse_drr", v:GetPos(), Angle(0, 0, 0))
 			v:TakeDamage(math.random(10,15) * DRONES_REWRITE.ServerCVars.DmgCoef:GetFloat(), self.Owner, self)
+			v:EmitSound("drones/nio_dissolve.wav", 100, 90)
 		end
-
-		self:EmitSound("drones/nio_dissolve.wav", 100, 90)
 	end)
 
-	self:SetNextPrimaryFire(CurTime() + self:SequenceDuration())
+	timer.Simple(self:SequenceDuration() / 2, function()
+		if not IsValid(self) then return end
+
+		self:EmitSound("buttons/button14.wav", 50, 90)
+	end)
+
+	self:SetNextPrimaryFire(CurTime() + 15)
 end
 
 function SWEP:SecondaryAttack()
@@ -114,14 +109,10 @@ function SWEP:Deploy()
 				self:DoIdle()
 			end 
 		end)
-		
-		
 	end
 	
 	return true
 end
-
-
 
 function SWEP:DoIdle()
 	timer.Create("DRR_J_weapon_idle", self:SequenceDuration(), 2, function() 

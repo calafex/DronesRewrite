@@ -82,6 +82,8 @@ DRONES_REWRITE.Weapons["Shield"] = {
 			if CurTime() > gun.WaitShieldSlow then
 				local projs = ents.FindInSphere(gun:GetPos(), 400)
 				for _, v in pairs(projs) do
+					if v == self then continue end
+					
 					local phys = v:GetPhysicsObject()
 					local slowCoefficient = 0.3
 						
