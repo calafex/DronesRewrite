@@ -2,6 +2,8 @@ DRONES_REWRITE.Weapons["Railgun"] = {
 	Initialize = function(self, pos, ang)
 		local ent = DRONES_REWRITE.Weapons["Template"].Initialize(self, "models/dronesrewrite/railgun/railgun.mdl", pos, ang)
 
+		DRONES_REWRITE.Weapons["Template"].SpawnSource(ent, Vector(40, 0, -7))
+
 		ent.PrimaryAmmo = 200
 		ent.PrimaryAmmoMax = 200
 		ent.PrimaryAmmoType = { DRONES_REWRITE.AmmoTypes.RailgunSticks }
@@ -27,6 +29,11 @@ DRONES_REWRITE.Weapons["Railgun"] = {
 			if IsValid(physamm) then physamm:EnableGravity(false) end 
 					
 			physamm:AddVelocity(gun:GetForward() * 5000)
+
+			local ef = EffectData()
+			ef:SetOrigin(gun.Source:GetPos())
+			ef:SetNormal(gun.Source:GetForward())
+			util.Effect("dronesrewrite_muzzleflashpulse", ef)
 
 			ammo:EmitSound("weapons/gauss/fire1.wav", 75, math.random(120, 200), 1, CHAN_WEAPON)
 
