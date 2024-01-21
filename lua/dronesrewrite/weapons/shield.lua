@@ -5,20 +5,15 @@ DRONES_REWRITE.Weapons["Shield"] = {
 		ent.ShieldActive = false
 		ent.ShieldEnergy = 100
 		ent.WaitEffect = 0
+		ent.WaitShieldSlow = 0
 
 		ent.SetShield = function(ent, n)
 			ent.ShieldActive = n
 
 			if n then
-				hook.Add("EntityTakeDamage", "dronesrewrite_shielddmgdec" .. ent:EntIndex(), function(ply, dmg)
-					if ply:GetPos():Distance(ent:GetPos()) < 400 then
-						local hp = dmg:GetDamage() * 0.8
-
-						if ply.IS_DRR then
-							ply:SetHealthAmount(ply:GetHealth() + hp)
-						else
-							ply:SetHealth(ply:Health() + hp)
-						end
+				hook.Add("EntityTakeDamage", "dronesrewrite_shielddmgdec" .. ent:EntIndex(), function(target, dmgInfo)
+					if target:GetPos():Distance(ent:GetPos()) < 400 then
+						dmgInfo:ScaleDamage(0.5)
 					end
 				end)
 
@@ -80,7 +75,26 @@ DRONES_REWRITE.Weapons["Shield"] = {
 
 			if CurTime() > gun.WaitEffect then
 				ParticleEffect("electrical_arc_01_parent", gun:GetPos(), Angle(0, 0, 0))
+
 				gun.WaitEffect = CurTime() + math.Rand(0.1, 0.4)
+			end
+
+			if CurTime() > gun.WaitShieldSlow then
+				local projs = ents.FindInSphere(gun:GetPos(), 400)
+				for _, v in pairs(projs) do
+					local phys = v:GetPhysicsObject()
+					local slowCoefficient = 0.3
+						
+					if phys:IsValid() then
+						phys:SetVelocity(phys:GetVelocity() * slowCoefficient)
+						phys:SetAngleVelocity(phys:GetAngleVelocity() * slowCoefficient)
+					else
+						v:SetVelocity(v:GetVelocity() * slowCoefficient)
+						v:SetLocalAngularVelocity(v:GetLocalAngularVelocity() * slowCoefficient)
+					end
+				end
+
+				gun.WaitShieldSlow = CurTime() + 0.1
 			end
 
 			if gun.ShieldEnergy <= 0 then

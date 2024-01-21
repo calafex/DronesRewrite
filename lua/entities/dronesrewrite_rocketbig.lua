@@ -35,7 +35,7 @@ if SERVER then
 		util.Effect("dronesrewrite_rocketfly", ef, true, true)         
 
 		local phys = self:GetPhysicsObject()
-		phys:ApplyForceCenter(self:GetForward() * 10000)
+		phys:ApplyForceCenter(self:GetForward() * 2000)
 
 		phys:AddAngleVelocity(VectorRand() * math.sin(CurTime() * 3) * 0.12)
 

@@ -23,7 +23,8 @@ if SERVER then
 		local ent = data.HitEntity
 		if ent:IsValid() then
 			local owner = self.Owner
-			ent:TakeDamage(math.random(12,15) * DRONES_REWRITE.ServerCVars.DmgCoef:GetFloat(), owner, owner)
+			local velocityLen = self:GetPhysicsObject():GetVelocity():Length()
+			ent:TakeDamage(math.random(12,15) * velocityLen / 4000 * DRONES_REWRITE.ServerCVars.DmgCoef:GetFloat(), owner, owner)
 		end
 
 		local tr = util.TraceLine({
@@ -35,6 +36,15 @@ if SERVER then
 		util.Decal("impact.concrete", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 		
 		self:Remove()
+	end
+
+	function ENT:PhysicsUpdate(phys)
+		if self.LastPhys == CurTime() then return end
+
+		local velocityLen = self:GetPhysicsObject():GetVelocity():Length()
+		if velocityLen < 1000 then phys:EnableGravity(true) end
+
+		self.LastPhys = CurTime()
 	end
 else
 	function ENT:Draw()
