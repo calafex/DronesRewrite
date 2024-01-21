@@ -40,9 +40,11 @@ DRONES_REWRITE.Weapons["Artillery Cannon"] = {
 			shell:SetPos(src2)
 			shell:SetOwner(self:GetDriver())
 			shell:SetAngles(gun:GetAngles())
+			shell:SetParent(gun)
 			
-			timer.Simple(0.3, function()
+			timer.Simple(0.5, function()
 				shell:Spawn()
+				shell:SetParent(null)
 				
 				local physshell = shell:GetPhysicsObject()
 				
