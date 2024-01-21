@@ -48,6 +48,9 @@ DRONES_REWRITE.AddModule = function(name, tab)
 			local ent = data.HitEntity
 
 			if IsValid(ent) and ent.IS_DRR then
+				local driver = ent:GetDriver()
+				if driver:IsValid() then return end
+
 				if ent:AddModule(self.PrintName) then SafeRemoveEntity(self) end
 			end
 		end
@@ -777,11 +780,7 @@ DRONES_REWRITE.AddModule("Shield", {
 
 		drone:AddHook("TakeDamage", "shield_dmg", function(dmg)
 			SafeRemoveEntity(drone.Buffer.Shield)
-
-			local dmgAmount = dmg:GetDamage()
 			local pos = dmg:GetDamagePosition()
-
-			drone.Buffer.ShieldHealth = drone.Buffer.ShieldHealth - dmgAmount / 10
 
 			local e = ents.Create("base_anim")
 			e:SetModel(drone.Model)
@@ -796,7 +795,9 @@ DRONES_REWRITE.AddModule("Shield", {
 				
 			drone.Buffer.Shield = e
 
-			drone:SetHealthAmount(drone:GetHealth() + dmgAmount / 1.3)
+			local dmgAmount = dmg:GetDamage()
+			drone.Buffer.ShieldHealth = drone.Buffer.ShieldHealth - dmgAmount * 2/3
+			drone:SetHealthAmount(drone:GetHealth() + dmgAmount * 1/3)
 			drone:EmitSound("ambient/energy/weld2.wav", 100, 255, 1)
 
 			ParticleEffect("blade_glow_drr", pos, Angle(0, 0, 0))
