@@ -12,6 +12,7 @@ ENT.SpawnHeight = 300
 ENT.Weight = 6000
 
 ENT.HackValue = 5
+ENT.ImmuneToJammer = true
 
 ENT.Model = "models/dronesrewrite/exmac/exmac.mdl"
 

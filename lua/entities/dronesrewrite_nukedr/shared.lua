@@ -29,6 +29,7 @@ ENT.ExplosionAngForce = 0.1
 ENT.NoiseCoefficient = 0
 
 ENT.HackValue = 5
+ENT.ImmuneToJammer = true
 
 ENT.Speed = 7000
 ENT.UpSpeed = 35000

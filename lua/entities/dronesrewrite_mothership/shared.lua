@@ -7,6 +7,7 @@ ENT.Category = "Drones Rewrite"
 ENT.AdminOnly = true
 
 ENT.HackValue = 5
+ENT.ImmuneToJammer = true
 
 ENT.UNIT = "MSP"
 

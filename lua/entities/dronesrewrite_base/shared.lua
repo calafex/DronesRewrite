@@ -14,6 +14,7 @@ ENT.DRRFriendsControlling = nil
 ENT.CamAngles = Angle(0, 0, 0)
 
 ENT.HackValue = 1
+ENT.ImmuneToJammer = false
 
 ENT.Useable = true
 ENT.IS_DRONE = true

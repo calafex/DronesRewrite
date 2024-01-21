@@ -44,6 +44,7 @@ function SWEP:PrimaryAttack()
 		for k, v in pairs(entsInSphere) do
 			if not v.IS_DRONE then continue end
 			if v == self then continue end
+			if v.ImmuneToJammer then continue end
 
 			local phys = v:GetPhysicsObject()
 			if not phys:IsValid() then continue end

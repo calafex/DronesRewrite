@@ -32,6 +32,7 @@ ENT.Hover = 110
 ENT.AngOffset = 1.6
 
 ENT.HackValue = 4
+ENT.ImmuneToJammer = true
 
 ENT.Fuel = 700
 ENT.MaxFuel = 700

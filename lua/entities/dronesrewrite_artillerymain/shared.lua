@@ -12,6 +12,7 @@ ENT.SpawnHeight = 150
 ENT.Weight = 6000
 
 ENT.HackValue = 5
+ENT.ImmuneToJammer = true
 
 ENT.Model = "models/dronesrewrite/artillerymain/artillerymain.mdl"
 

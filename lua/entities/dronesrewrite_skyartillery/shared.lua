@@ -27,6 +27,7 @@ ENT.DefaultHealth = 3000
 ENT.DoExplosionEffect = "splode_big_drone_main"
 
 ENT.HackValue = 5
+ENT.ImmuneToJammer = true
 
 ENT.ExplosionForce = 0.4
 ENT.ExplosionAngForce = 0.01

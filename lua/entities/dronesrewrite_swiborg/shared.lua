@@ -27,6 +27,7 @@ ENT.NoiseCoefficient = 0
 ENT.AngOffset = 3
 
 ENT.HackValue = 5
+ENT.ImmuneToJammer = true
 
 ENT.Speed = 80000
 ENT.UpSpeed = 200000

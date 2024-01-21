@@ -25,9 +25,9 @@ SWEP.ViewModel = "models/dronesrewrite/c_radar/c_radar.mdl"
 SWEP.WorldModel = "models/dronesrewrite/c_radar/c_radar.mdl"
 
 function SWEP:DoIdle()
-	timer.Simple(self:SequenceDuration() + math.random(30, 60), function() 
+	timer.Simple(self:SequenceDuration() + math.random(60, 90), function() 
 		if IsValid(self) then 
-			--self:SendWeaponAnim(ACT_VM_IDLE) 
+			self:SendWeaponAnim(ACT_VM_IDLE) 
 			self:DoIdle()
 		end 
 	end)
